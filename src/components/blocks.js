@@ -236,7 +236,7 @@ class Blocks extends React.Component {
                   <ThirdBlock onData={this.handleBlock3}/>
                   <FourthBlock onData={this.handleBlock4}/>
                   <div className="reportDiv">
-                     <button className="report" onClick={this.ClickToReport}>Продолжить</button>
+                     <button className="reportBtn" onClick={this.ClickToReport}>Продолжить</button>
                   </div>
                </div>
             ) : (
@@ -253,7 +253,7 @@ class Blocks extends React.Component {
                            && (answers.fourth.risk13.q1.cat === 0) && (answers.fourth.risk13.q2.cat === 0)) ? (
                            <div>
                               <h2> Риски не выявлены! </h2>
-                              <h2> Ознакомиться с возможными рисками вы можете в разделе{' '}
+                              <h2> Ознакомиться с возможными рисками Вы можете в разделе{' '}
                                  <Link to="/handbook">справочник</Link>!справочник.
                               </h2>
                            </div>
@@ -261,7 +261,7 @@ class Blocks extends React.Component {
                            <div>
                               <h2> Риски не выявлены! </h2>
                               <div className="notPassed">
-                                 <h3>Обратите внимание, есть ряд рисков которые вы не прошли! </h3>
+                                 <h3>Обратите внимание, есть ряд рисков, тестирование по которым Вы не прошли! </h3>
                                  <div>
                                     {answers.first.risk1.cat === -1 && (
                                        <div>
@@ -330,7 +330,7 @@ class Blocks extends React.Component {
                                     )}
                                  </div>
                               </div>
-                              <h2> Ознакомиться с возможными рисками вы можете в разделе{' '}
+                              <h2> Ознакомиться с возможными рисками Вы можете в разделе{' '}
                                  <Link to="/handbook">справочник</Link>.
                               </h2>
                            </div>
@@ -338,6 +338,21 @@ class Blocks extends React.Component {
                      </div>
                   ) : (
                      <div>
+                        <h3>Обозначения:</h3>
+                        <div className="reportIcons">
+                           <div className="reportIconsInfo">
+                              <BsExclamationCircle className="conclusionIconInfo" color="#e4f52c" size={24}/>
+                              <h4>- Низкая степень опасности риска для сделки</h4>
+                           </div>
+                           <div className="reportIconsInfo">
+                              <BsDashCircle className="conclusionIconInfo" color="orange" size={24}/>
+                              <h4>- Средняя степень опасности риска для сделки</h4>
+                           </div>
+                           <div className="reportIconsInfo">
+                              <BsXCircle className="conclusionIconInfo" color="red" size={24}/>
+                              <h4>- Высокая степень опасности риска для сделки</h4>
+                           </div>
+                        </div>
                         <h2> Выявлены следующие риски: </h2>
                         {((answers.first.risk1.cat > -1) && (answers.first.risk10.cat > -1) && (answers.second.risk2.cat > -1) && (answers.second.risk3.cat > -1)
                            && (answers.second.risk4.cat > -1) && (answers.second.risk8.cat > -1) && (answers.second.risk11.cat > -1) && (answers.third.risk5.cat > -1)
@@ -428,7 +443,7 @@ class Blocks extends React.Component {
                                           <div>
                                              <h2> Риск №3: Границы объекта </h2>
                                              <div className="conclusion">
-                                                <BsExclamationCircle className="conclusionIcon" color="yellow"
+                                                <BsExclamationCircle className="conclusionIcon" color="#e4f52c"
                                                                      size={36}/>
                                                 <h3>{answers.second.risk2.ans}</h3>
                                              </div>
@@ -445,9 +460,10 @@ class Blocks extends React.Component {
                                                 <div>
                                                    <div className="Rec">
                                                       <h3>Рекомендации:</h3>
-                                                      <p> Есть риск, что межевание не соответствует выписке ЕГРН,
+                                                      <p> Есть риск, что межевание не соответствует выписке из ЕГРН,
                                                          поэтому: </p>
-                                                      <p> Проверьте с помощью публичной кадастровой карты
+                                                      <p> Проверьте межевой план и акт согласования границ с помощью
+                                                         публичной кадастровой карты
                                                          Росреестра: <br/>
                                                          Сылка №1 https://www.gosuslugi.ru/378659/1/info <br/>
                                                          Ссылка № 2
@@ -566,7 +582,7 @@ class Blocks extends React.Component {
                                           <div>
                                              <h2> Риск № 6: Юридическая история объекта </h2>
                                              <div className="conclusion">
-                                                <BsExclamationCircle className="conclusionIcon" color="yellow"
+                                                <BsExclamationCircle className="conclusionIcon" color="#e4f52c"
                                                                      size={36}/>
                                                 <h3>{answers.second.risk8.ans}</h3>
                                              </div>
@@ -730,7 +746,7 @@ class Blocks extends React.Component {
                                           <div>
                                              <h2> Риск №11: Продавец-ответчик в судебном споре </h2>
                                              <div className="conclusion">
-                                                <BsExclamationCircle className="conclusionIcon" color="yellow"
+                                                <BsExclamationCircle className="conclusionIcon" color="#e4f52c"
                                                                      size={36}/>
                                                 <h3>{answers.third.risk9.ans}</h3>
                                              </div>
@@ -793,13 +809,14 @@ class Blocks extends React.Component {
                                              </div>
                                              <div className="Rec">
                                                 <h3>Рекомендации:</h3>
-                                                <p> Есть риск, что Продавец является недееспособным, поэтому: </p>
+                                                <p> Есть риск, что Продавец является недееспособным, поэтому:</p>
                                                 <p> Получите выписку из ЕГРН о признании правообладателя недееспособным
-                                                   или ограниченно дееспособным.
-                                                   Инструкция по ссылке:
+                                                   или ограниченно дееспособным. Инструкция по ссылке:
                                                    https://www.gosuslugi.ru/help/faq/egrn/101769 </p>
-                                                <p> Запросите у Продавца справку из ПНД, чтобы удостовериться в его
-                                                   полной дееспособности. </p>
+                                                <p> Запросите у Продавца справки из психоневрологического диспансера и
+                                                   наркологического диспансера, чтобы удостовериться в его полной
+                                                   дееспособности и снять подозрения о невозможности совершения
+                                                   осознанных действий. </p>
                                              </div>
                                           </div>
                                        )}
@@ -899,7 +916,7 @@ class Blocks extends React.Component {
                                           <div>
                                              <h2> Риск №3: Границы объекта </h2>
                                              <div className="conclusion">
-                                                <BsExclamationCircle className="conclusionIcon" color="yellow"
+                                                <BsExclamationCircle className="conclusionIcon" color="#e4f52c"
                                                                      size={36}/>
                                                 <h3>{answers.second.risk2.ans}</h3>
                                              </div>
@@ -909,23 +926,32 @@ class Blocks extends React.Component {
                                                       <h3>Рекомендации:</h3>
                                                       <p> Есть риск, что межевание не проведено, поэтому: </p>
                                                       <p> Необходимо провести межевание земельного участка и поставить
-                                                         его на кадастровый учет. </p>
+                                                         его на кадастровый учет. Воспользуйтесь услугами кадастрового
+                                                         инженера. Он поможет Вам провести проверку межевания. </p>
+                                                      <p>Аккредитованные кадастровые инженеры есть в реестре.
+                                                         Ознакомиться с ним Вы можете по ссылке:
+                                                         https://rosreestr.gov.ru/</p>
                                                    </div>
                                                 </div>
                                              ) : (
                                                 <div>
                                                    <div className="Rec">
                                                       <h3>Рекомендации:</h3>
-                                                      <p> Есть риск, что межевание не соответствует выписке ЕГРН,
+                                                      <p> Есть риск, что межевание не соответствует выписке из ЕГРН,
                                                          поэтому: </p>
-                                                      <p> Проверьте с помощью публичной кадастровой карты
+                                                      <p> Проверьте межевой план и акт согласования границ с помощью
+                                                         публичной кадастровой карты
                                                          Росреестра: <br/>
-                                                         Сылка №1 https://www.gosuslugi.ru/378659/1/info <br/>
-                                                         Ссылка № 2
+                                                         Ссылка №1 https://www.gosuslugi.ru/378659/1/info <br/>
+                                                         Ссылка №2
                                                          https://pkk.rosreestr.ru/?source=subscribe#/search/63.60201437832657,65.56074746184491/4/@bzbws4844
                                                       </p>
                                                       <p> Воспользуйтесь услугами кадастрового инженера. Он поможет Вам
-                                                         провести проверку межевания. </p>
+                                                         провести проверку межевания.</p>
+
+                                                      <p>Аккредитованные кадастровые инженеры есть в реестре.
+                                                         Ознакомиться с ним Вы можете по ссылке:
+                                                         https://rosreestr.gov.ru/</p>
                                                    </div>
                                                 </div>
                                              )}
@@ -1037,7 +1063,7 @@ class Blocks extends React.Component {
                                           <div>
                                              <h2> Риск № 6: Юридическая история объекта </h2>
                                              <div className="conclusion">
-                                                <BsExclamationCircle className="conclusionIcon" color="yellow"
+                                                <BsExclamationCircle className="conclusionIcon" color="#e4f52c"
                                                                      size={36}/>
                                                 <h3>{answers.second.risk8.ans}</h3>
                                              </div>
@@ -1201,7 +1227,7 @@ class Blocks extends React.Component {
                                           <div>
                                              <h2> Риск №11: Продавец-ответчик в судебном споре </h2>
                                              <div className="conclusion">
-                                                <BsExclamationCircle className="conclusionIcon" color="yellow"
+                                                <BsExclamationCircle className="conclusionIcon" color="#e4f52c"
                                                                      size={36}/>
                                                 <h3>{answers.third.risk9.ans}</h3>
                                              </div>
@@ -1264,13 +1290,16 @@ class Blocks extends React.Component {
                                              </div>
                                              <div className="Rec">
                                                 <h3>Рекомендации:</h3>
-                                                <p> Есть риск, что Продавец является недееспособным, поэтому: </p>
+                                                <p> Есть риск, что Продавец является недееспособным, поэтому:</p>
                                                 <p> Получите выписку из ЕГРН о признании правообладателя недееспособным
-                                                   или ограниченно дееспособным.
-                                                   Инструкция по ссылке:
+                                                   или ограниченно дееспособным. Инструкция по ссылке:
                                                    https://www.gosuslugi.ru/help/faq/egrn/101769 </p>
-                                                <p> Запросите у Продавца справку из ПНД, чтобы удостовериться в его
-                                                   полной дееспособности. </p>
+                                                <p> Есть риск, что Продавец является недееспособным и за него все
+                                                   решения по сделке принимает опекун, поэтому:
+                                                   Вы можете обратиться в орган опеки и попечительства по месту
+                                                   жительства недееспособного (или ограниченно дееспособного) и получить
+                                                   удостоверение опекуна или (попечителя).
+                                                </p>
                                              </div>
                                           </div>
                                        )}
@@ -1278,7 +1307,7 @@ class Blocks extends React.Component {
                                  )}
                               </div>
                               <div className="notPassed">
-                                 <h3>Обратите внимание, есть ряд рисков которые вы не прошли! </h3>
+                                 <h3>Обратите внимание, есть ряд рисков, тестирование по которым Вы не прошли! </h3>
                                  <div>
                                     {answers.first.risk1.cat === -1 && (
                                        <div>
