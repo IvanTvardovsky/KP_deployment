@@ -150,13 +150,13 @@ class Risk11 extends React.Component {
                   className={`RiskIcon ${isClicked ? 'rotated' : ''}`}
                   onClick={this.ClickToBlock}
                />
-               <h3>Риск № 7: Наличие обременений в отношении земельного участка</h3>
+               <h3>Риск № 7: Обременения на объект</h3>
             </div>
             {this.state.isClicked && (
                <div>
                   <div className="Question">
                      <div className="QuestTool">
-                        <p>{this.quests[0].question}</p>
+                        <p className="bigger">{this.quests[0].question}</p>
                         <BsQuestionCircleFill
                            className="QuestIcon"
                            onMouseEnter={() => this.handleMouseEnter(0)}
@@ -187,7 +187,7 @@ class Risk11 extends React.Component {
                         {!ans[0] ? (
                            <div className="Question">
                               <div className="QuestTool">
-                                 <p>{this.quests[1].question}</p>
+                                 <p className="bigger">{this.quests[1].question}</p>
                                  <BsQuestionCircleFill
                                     className="QuestIcon"
                                     onMouseEnter={() => this.handleMouseEnter(1)}

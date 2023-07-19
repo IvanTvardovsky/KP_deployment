@@ -25,7 +25,7 @@ class Risk5 extends React.Component {
    quests = [
       {
          number: 1,
-         question: 'Продавец был найден в реестре о банкротстве?',
+         question: 'Проверен ли продавец в реестре о банкротстве?',
          answer: 'Риска нет.',
          ansCheck: false,
          help: false
@@ -49,9 +49,9 @@ class Risk5 extends React.Component {
          }));
          this.setState({
             riskanswer: {
-               ans: 'Риск есть',
-               cat: 3,
-               number: 1
+               ans: 'Риска нет',
+               cat: 0,
+               number: 0
             }
          });
       } else {
@@ -60,9 +60,9 @@ class Risk5 extends React.Component {
          }));
          this.setState({
             riskanswer: {
-               ans: 'Риска нет',
-               cat: 0,
-               number: 0
+               ans: 'Риск есть',
+               cat: 3,
+               number: 1
             }
          });
       }
@@ -88,7 +88,7 @@ class Risk5 extends React.Component {
    render() {
       const {ans, click, isClicked, visible} = this.state;
       const tooltips = [
-         `<b>Банкротство</b> - это признанная судом неспособность гражданина погасить долги, в результате которой все имущество гражданина продается.`
+         `<b>Банкротство</b> - это признанная судом неспособность гражданина погасит долги, в результате которой все имущества гражданина продается.`
       ];
       return (
          <div className="Risk">
@@ -103,7 +103,7 @@ class Risk5 extends React.Component {
                <div>
                   <div className="Question">
                      <div className="QuestTool">
-                        <p>{this.quests[0].question}</p>
+                        <p className="bigger">{this.quests[0].question}</p>
                         <BsQuestionCircleFill
                            className="QuestIcon"
                            onMouseEnter={() => this.handleMouseEnter(0)}

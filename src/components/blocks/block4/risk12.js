@@ -25,7 +25,7 @@ class Risk12 extends React.Component {
    quests = [
       {
          number: 1,
-         question: 'Проверили ли Вы доверенность перед покупкой участка?',
+         question: 'Проверили ли Вы действительность генеральной доверенности перед покупкой участка?',
          answer: 'Риск есть.',
          ansCheck: false,
          help: false
@@ -97,13 +97,13 @@ class Risk12 extends React.Component {
                   className={`RiskIcon ${isClicked ? 'rotated' : ''}`}
                   onClick={this.ClickToBlock}
                />
-               <h3>Риск №12: Доверенность</h3>
+               <h3>Риск №12: Генеральная доверенность</h3>
             </div>
             {this.state.isClicked && (
                <div>
                   <div className="Question">
                      <div className="QuestTool">
-                        <p>{this.quests[0].question}</p>
+                        <p className="bigger" id="perenos">{this.quests[0].question}</p>
                         <BsQuestionCircleFill
                            className="QuestIcon"
                            onMouseEnter={() => this.handleMouseEnter(0)}

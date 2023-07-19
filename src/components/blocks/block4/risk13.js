@@ -22,7 +22,6 @@ class Risk13 extends React.Component {
       this.handleAnswer1 = this.handleAnswer1.bind(this);
       this.ClickToBlock = this.ClickToBlock.bind(this);
    }
-
    quests = [
       {
          number: 1,
@@ -56,7 +55,7 @@ class Risk13 extends React.Component {
             ans: prevState.ans.map((item, index) => (index === 0 ? false : item))
          }));
          this.setState({
-            riskanswer1: {
+            riskanswer1:{
                ans: 'Риска нет',
                cat: 0,
                number: 0
@@ -67,7 +66,7 @@ class Risk13 extends React.Component {
             ans: prevState.ans.map((item, index) => (index === 0 ? true : item))
          }));
          this.setState({
-            riskanswer1: {
+            riskanswer1:{
                ans: 'Риск есть',
                cat: 3,
                number: 1
@@ -85,7 +84,7 @@ class Risk13 extends React.Component {
             ans: prevState.ans.map((item, index) => (index === 1 ? false : item))
          }));
          this.setState({
-            riskanswer2: {
+            riskanswer2:{
                ans: 'Риска нет',
                cat: 0,
                number: 0
@@ -96,7 +95,7 @@ class Risk13 extends React.Component {
             ans: prevState.ans.map((item, index) => (index === 1 ? true : item))
          }));
          this.setState({
-            riskanswer2: {
+            riskanswer2:{
                ans: 'Риск есть',
                cat: 3,
                number: 1
@@ -115,7 +114,7 @@ class Risk13 extends React.Component {
    }
 
    render() {
-      const {ans, click, isClicked} = this.state;
+      const { ans, click, isClicked } = this.state;
       return (
          <div className="Risk">
             <div className="RiskName">
@@ -123,21 +122,16 @@ class Risk13 extends React.Component {
                   className={`RiskIcon ${isClicked ? 'rotated' : ''}`}
                   onClick={this.ClickToBlock}
                />
-               <h3>Риск №13: Невозможность самостоятельного принятия решения Продавцом. Принуждение к совершению
-                  сделки</h3>
+               <h3>Риск №13: Недееспособность продавца</h3>
             </div>
             {this.state.isClicked && (
                <div>
                   <div className="Question">
                      <div className="QuestTool">
-                        <p>{this.quests[0].question}</p>
+                        <p className="bigger">{this.quests[0].question}</p>
                      </div>
-                     <button className={`ans-btn ${click[0] && !ans[0] ? 'active' : ''}`}
-                             onClick={() => this.handleAnswer1('да')}>Да
-                     </button>
-                     <button className={`ans-btn ${click[0] && ans[0] ? 'active' : ''}`}
-                             onClick={() => this.handleAnswer1('нет')}>Нет
-                     </button>
+                     <button className={`ans-btn ${click[0] && !ans[0] ? 'active' : ''}`} onClick={() => this.handleAnswer1('да')}>Да</button>
+                     <button className={`ans-btn ${click[0] && ans[0] ? 'active' : ''}`} onClick={() => this.handleAnswer1('нет')}>Нет</button>
                   </div>
                   {click[0] && (
                      <div>
@@ -148,30 +142,6 @@ class Risk13 extends React.Component {
                         ) : (
                            <div className="Answer">
                               <p>{this.quests[0].answer}</p>
-                           </div>
-                        )}
-                     </div>
-                  )}
-                  <div className="Question">
-                     <div className="QuestTool">
-                        <p>{this.quests[1].question}</p>
-                     </div>
-                     <button className={`ans-btn ${click[1] && !ans[1] ? 'active' : ''}`}
-                             onClick={() => this.handleAnswer2('да')}>Да
-                     </button>
-                     <button className={`ans-btn ${click[1] && ans[1] ? 'active' : ''}`}
-                             onClick={() => this.handleAnswer2('нет')}>Нет
-                     </button>
-                  </div>
-                  {click[1] && (
-                     <div>
-                        {!ans[1] ? (
-                           <div className="Answer">
-                              <p>Риска нет.</p>
-                           </div>
-                        ) : (
-                           <div className="Answer">
-                              <p>{this.quests[1].answer}</p>
                            </div>
                         )}
                      </div>

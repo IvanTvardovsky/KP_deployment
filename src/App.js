@@ -33,7 +33,7 @@ class App extends React.Component {
                <Navbar/>
                <div className="App">
                   <Routes>
-                     <Route path="/" element={<Mainpage/>}/>
+                     <Route path="/KP_deployment" element={<Mainpage/>}/>
                      <Route path="/instrument" element={<Instrument items={items}/>}/>
                      <Route path="/blocks" element={<Blocks/>}/>
                      <Route path="/calculator" element={<Calculator/>}/>

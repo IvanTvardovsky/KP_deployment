@@ -9,7 +9,7 @@ class Navbar extends React.Component {
          <div className="navbar">
             <div className="navbar-wrapper">
                <div className="navbar-logo">
-                  <Link to="/">
+                  <Link to="/KP_deployment">
                      <Image image={logo}/>
                   </Link>
                </div>
