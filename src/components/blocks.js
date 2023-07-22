@@ -2,12 +2,13 @@ import React from "react";
 import FirstBlock from "./blocks/firstblock"
 import SecondBlock from "./blocks/secondblock"
 import ThirdBlock from "./blocks/thirdblock";
-import FourthBlock from "./blocks/fourthblock";
 import {BsCheckCircle} from "react-icons/bs"
-import {BsExclamationCircle} from "react-icons/bs"
 import {BsDashCircle} from "react-icons/bs"
 import {BsXCircle} from "react-icons/bs"
 import {Link} from 'react-router-dom';
+import {PDFDownloadLink} from '@react-pdf/renderer';
+import Report from './report';
+import ScrollToTop from './scrollToTop'
 
 
 class Blocks extends React.Component {
@@ -23,6 +24,11 @@ class Blocks extends React.Component {
                   number: -1
                },
                risk10: {
+                  ans: 'none',
+                  cat: -1,
+                  number: -1
+               },
+               risk12: {
                   ans: 'none',
                   cat: -1,
                   number: -1
@@ -75,13 +81,6 @@ class Blocks extends React.Component {
                   ans: 'none',
                   cat: -1,
                   number: -1
-               }
-            },
-            fourth: {
-               risk12: {
-                  ans: 'none',
-                  cat: -1,
-                  number: -1
                },
                risk13: {
                   q1: {
@@ -101,15 +100,32 @@ class Blocks extends React.Component {
       this.handleBlock1 = this.handleBlock1.bind(this)
       this.handleBlock2 = this.handleBlock2.bind(this)
       this.handleBlock3 = this.handleBlock3.bind(this)
-      this.handleBlock4 = this.handleBlock4.bind(this)
       this.ClickToReport = this.ClickToReport.bind(this)
+   }
+
+   scrollToTop = () => {
+      window.scrollTo({
+         top: 0,
+         behavior: 'smooth'
+      });
    }
 
    ClickToReport = (event) => {
       this.setState((prevState) => ({
          reportClick: !prevState.reportClick
       }));
+      this.scrollToTop();
    };
+
+   getCurrentDate() {
+      const currentDate = new Date();
+      const options = {
+         year: "numeric",
+         month: "long",
+         day: "numeric",
+      };
+      return currentDate.toLocaleDateString(undefined, options);
+   }
 
    handleBlock1 = (data) => {
       this.setState((prevState) => ({
@@ -125,6 +141,11 @@ class Blocks extends React.Component {
                   ans: data.risk10Data.ans,
                   cat: data.risk10Data.cat,
                   number: data.risk10Data.number,
+               },
+               risk12: {
+                  ans: data.risk12Data.ans,
+                  cat: data.risk12Data.cat,
+                  number: data.risk12Data.number,
                }
             }
          }
@@ -190,25 +211,9 @@ class Blocks extends React.Component {
                   ans: data.risk9Data.ans,
                   cat: data.risk9Data.cat,
                   number: data.risk9Data.number,
-               }
-            }
-         }
-      }));
-   };
-
-   handleBlock4 = (data) => {
-      this.setState((prevState) => ({
-         answers: {
-            ...prevState.answers,
-            fourth: {
-               ...prevState.answers.fourth,
-               risk12: {
-                  ans: data.risk12Data.ans,
-                  cat: data.risk12Data.cat,
-                  number: data.risk12Data.number,
                },
                risk13: {
-                  ...prevState.answers.fourth.risk13,
+                  ...prevState.answers.third.risk13,
                   q1: {
                      ans: data.risk13Data.risk1.ans,
                      cat: data.risk13Data.risk1.cat,
@@ -226,6 +231,7 @@ class Blocks extends React.Component {
    };
 
    render() {
+      const currentDate = this.getCurrentDate();
       const {reportClick, answers} = this.state;
       return (
          <div className="Blocks">
@@ -234,7 +240,6 @@ class Blocks extends React.Component {
                   <FirstBlock onData={this.handleBlock1}/>
                   <SecondBlock onData={this.handleBlock2}/>
                   <ThirdBlock onData={this.handleBlock3}/>
-                  <FourthBlock onData={this.handleBlock4}/>
                   <div className="reportDiv">
                      <button className="reportBtn" onClick={this.ClickToReport}>Продолжить</button>
                   </div>
@@ -244,26 +249,38 @@ class Blocks extends React.Component {
                   <h1>Отчёт</h1>
                   {((answers.first.risk1.cat < 1) && (answers.first.risk10.cat < 1) && (answers.second.risk2.cat < 1) && (answers.second.risk3.cat < 1)
                      && (answers.second.risk4.cat < 1) && (answers.second.risk8.cat < 1) && (answers.second.risk11.cat < 1) && (answers.third.risk5.cat < 1)
-                     && (answers.third.risk6.cat < 1) && (answers.third.risk7.cat < 1) && (answers.third.risk9.cat < 1) && (answers.fourth.risk12.cat < 1)
-                     && (answers.fourth.risk13.q1.cat < 1) && (answers.fourth.risk13.q2.cat < 1)) ? (
+                     && (answers.third.risk6.cat < 1) && (answers.third.risk7.cat < 1) && (answers.third.risk9.cat < 1) && (answers.first.risk12.cat < 1)
+                     && (answers.third.risk13.q1.cat < 1) && (answers.third.risk13.q2.cat < 1)) ? (
                      <div>
                         {((answers.first.risk1.cat === 0) && (answers.first.risk10.cat === 0) && (answers.second.risk2.cat === 0) && (answers.second.risk3.cat === 0)
                            && (answers.second.risk4.cat === 0) && (answers.second.risk8.cat === 0) && (answers.second.risk11.cat === 0) && (answers.third.risk5.cat === 0)
-                           && (answers.third.risk6.cat === 0) && (answers.third.risk7.cat === 0) && (answers.third.risk9.cat === 0) && (answers.fourth.risk12.cat === 0)
-                           && (answers.fourth.risk13.q1.cat === 0) && (answers.fourth.risk13.q2.cat === 0)) ? (
+                           && (answers.third.risk6.cat === 0) && (answers.third.risk7.cat === 0) && (answers.third.risk9.cat === 0) && (answers.first.risk12.cat === 0)
+                           && (answers.third.risk13.q1.cat === 0) && (answers.third.risk13.q2.cat === 0)) ? (
                            <div>
                               <h2> Риски не выявлены! </h2>
-                              <h2> Ознакомиться с возможными рисками Вы можете в разделе{' '}
-                                 <Link to="/handbook">справочник</Link>!
+                              <PDFDownloadLink document={<Report answers={answers}/>} fileName="ЗемельКа отчет.pdf">
+                                 {({
+                                      blob,
+                                      url,
+                                      loading,
+                                      error
+                                   }) => (loading ? 'Загрузка документа...' : 'Скачать PDF отчет')}
+                              </PDFDownloadLink>
+                              <h2> Ознакомиться с возможными рисками вы можете в разделе{' '}
+                                 <Link to="/handbook">справочник</Link>!.
                               </h2>
-                              <p className="warning">Информируем Вас, что команда “ЗемельКа” не оказывает влияние на принятие Вами итогового
+                              <p className="warning">Информируем Вас, что команда “ЗемельКа” не оказывает влияние на
+                                 принятие Вами итогового
                                  решения по заключению сделки и не несет ответственность за это.</p>
+                              <div className="warning">
+                                 Вся информация актуальна на {currentDate}
+                              </div>
                            </div>
                         ) : (
                            <div>
                               <h2> Риски не выявлены! </h2>
                               <div className="notPassed">
-                                 <h3>Обратите внимание, есть ряд рисков, тестирование по которым Вы не прошли! </h3>
+                                 <h3>Есть тестовые вопросы, которые Вы не прошли:</h3>
                                  <div>
                                     {answers.first.risk1.cat === -1 && (
                                        <div>
@@ -320,48 +337,56 @@ class Blocks extends React.Component {
                                           <h4> Риск №11: Продавец-ответчик в судебном споре</h4>
                                        </div>
                                     )}
-                                    {answers.fourth.risk12.cat === -1 && (
+                                    {answers.first.risk12.cat === -1 && (
                                        <div>
                                           <h4> Риск №12: Генеральная доверенность </h4>
                                        </div>
                                     )}
-                                    {answers.fourth.risk13.q1.cat === -1 && (
+                                    {answers.third.risk13.q1.cat === -1 && (
                                        <div>
                                           <h4> Риск №13: Недееспособность продавца</h4>
                                        </div>
                                     )}
                                  </div>
                               </div>
-                              <h2> Ознакомиться с возможными рисками Вы можете в разделе{' '}
+                              <PDFDownloadLink document={<Report answers={answers}/>} fileName="отчет.pdf">
+                                 {({
+                                      blob,
+                                      url,
+                                      loading,
+                                      error
+                                   }) => (loading ? 'Загрузка документа...' : 'Скачать PDF отчет')}
+                              </PDFDownloadLink>
+                              <h2> Ознакомиться с возможными рисками вы можете в разделе{' '}
                                  <Link to="/handbook">справочник</Link>.
                               </h2>
-                              <p className="warning">Информируем Вас, что команда “ЗемельКа” не оказывает влияние на принятие Вами итогового
+                              <p className="warning">Информируем Вас, что команда “ЗемельКа” не оказывает влияние на
+                                 принятие Вами итогового
                                  решения по заключению сделки и не несет ответственность за это.</p>
+                              <div className="warning">
+                                 Вся информация актуальна на {currentDate}
+                              </div>
                            </div>
                         )}
                      </div>
                   ) : (
                      <div>
-                        <h3>Обозначения:</h3>
+                        <h3 className="report-designations">Обозначения:</h3>
                         <div className="reportIcons">
                            <div className="reportIconsInfo">
-                              <BsExclamationCircle className="conclusionIconInfo" color="#e4f52c" size={24}/>
-                              <h4>- Низкая степень опасности риска для сделки</h4>
+                              <BsDashCircle className="conclusionIconInfo" color="orange" size={34}/>
+                              <h3> — &nbsp;Сделка может быть заключена, но есть риск</h3>
                            </div>
                            <div className="reportIconsInfo">
-                              <BsDashCircle className="conclusionIconInfo" color="orange" size={24}/>
-                              <h4>- Средняя степень опасности риска для сделки</h4>
-                           </div>
-                           <div className="reportIconsInfo">
-                              <BsXCircle className="conclusionIconInfo" color="red" size={24}/>
-                              <h4>- Высокая степень опасности риска для сделки</h4>
+                              <BsXCircle className="conclusionIconInfo" color="red" size={34}/>
+                              <h3> — &nbsp;Сделка не может быть заключена</h3>
                            </div>
                         </div>
                         <h2> Выявлены следующие риски: </h2>
                         {((answers.first.risk1.cat > -1) && (answers.first.risk10.cat > -1) && (answers.second.risk2.cat > -1) && (answers.second.risk3.cat > -1)
                            && (answers.second.risk4.cat > -1) && (answers.second.risk8.cat > -1) && (answers.second.risk11.cat > -1) && (answers.third.risk5.cat > -1)
-                           && (answers.third.risk6.cat > -1) && (answers.third.risk7.cat > -1) && (answers.third.risk9.cat > -1) && (answers.fourth.risk12.cat > -1)
-                           && (answers.fourth.risk13.q1.cat > -1) && (answers.fourth.risk13.q2.cat > -1)) ? (
+                           && (answers.third.risk6.cat > -1) && (answers.third.risk7.cat > -1) && (answers.third.risk9.cat > -1) && (answers.first.risk12.cat > -1)
+                           && (answers.third.risk13.q1.cat > -1) && (answers.third.risk13.q2.cat > -1)) ? (
                            <div>
                               <div className={`riskBlock ${answers.first.risk1.cat > 0 ? 'active' : ''}`}>
                                  {answers.first.risk1.cat > -1 && (
@@ -383,16 +408,29 @@ class Blocks extends React.Component {
                                                 <p> Есть риск претензий со стороны супруга Продавца, поэтому: </p>
                                                 <p> Необходимо уточнить наличие брачного договора между супругами.
                                                    Нотариальное согласие второго супруга не требуется в случае, если
-                                                   заключен брачный договор. </p>
+                                                   заключен брачный договор, в котором прописано условие о праве
+                                                   распоряжения земельным участком. </p>
                                                 <p> Необходимо выяснить, когда земельный участок был приобретен
                                                    продавцом. Если до брака путем личного приобретения, дарения или
                                                    наследства, то второй супруг не может препятствовать совершению
                                                    сделки; если в браке, то второй супруг должен выразить свое согласие
                                                    на продажу, которое будет нотариально заверено. </p>
+                                                <p> Ознакомиться с законодательством вы можете по ссылке:</p>
+                                                <Link
+                                                   to="https://www.consultant.ru/document/cons_doc_LAW_5142/ec0c88d23cfe0b75563d574872c1457827b3607f/?ysclid=lkb23oaxga358628244"
+                                                   target="_blank" rel="noopener noreferrer">
+                                                   ГК РФ Статья 256. Общая собственность супругов \ КонсультантПлюс
+                                                </Link>
+                                                &nbsp;(ч. 1 ст. 256 ГК РФ)
                                                 <p> Попросите Продавца обратиться к нотариусу для получения
                                                    нотариального согласия. <br/>
-                                                   Записаться на прием к нотариусу можно на Госуслугах по ссылке:
-                                                   https://www.gosuslugi.ru/help/faq/notary/102751 </p>
+                                                   Записаться на прием к нотариусу можно на Госуслугах по ссылке: <br/>
+                                                   <Link
+                                                      to="https://www.gosuslugi.ru/help/faq/notary/102751"
+                                                      target="_blank" rel="noopener noreferrer">
+                                                      https://www.gosuslugi.ru/help/faq/notary/102751
+                                                   </Link>
+                                                </p>
                                              </div>
                                           </div>
                                        )}
@@ -425,10 +463,25 @@ class Blocks extends React.Component {
                                                    01.09.2013 - 15.07.2016 - свидетельство о регистрации или выпиской из
                                                    ЕГРН; <br/>
                                                    15.07.2016 - по настоящее время - только выписка из ЕГРН. </p>
+                                                <p>На любой зарегистрированный объект недвижимости можно получить
+                                                   выписку из ЕГРН, даже если у собственника ее никогда не было.<br/>
+                                                   Ознакомиться с законодательством Вы можете по ссылке:<br/>
+                                                   <Link
+                                                      to="https://www.consultant.ru/document/cons_doc_LAW_182661/e064cc95b1bdffa4d12abb92fdfc56dea94198df/"
+                                                      target="_blank" rel="noopener noreferrer">
+                                                      Статья 62. Порядок предоставления сведений, содержащихся в Едином
+                                                      государственном реестре недвижимости \ КонсультантПлюс
+                                                   </Link>
+                                                   &nbsp;(ст. 62 ГК РФ)
+                                                </p>
                                                 <p> На любой зарегистрированный объект недвижимости можно получить
                                                    выписку из ЕГРН, даже если у собственника ее никогда не было.
-                                                   Заказать ее Вы можете, перейдя по ссылке:
-                                                   https://rosreestor.net/vipiska-o-perehode-prav</p>
+                                                   Заказать выписку Вы (или Продавец) можете, перейдя по ссылке:&nbsp;
+                                                   <Link
+                                                      to="https://rosreestor.net/vipiska-o-perehode-prav"
+                                                      target="_blank" rel="noopener noreferrer">
+                                                      https://rosreestor.net/vipiska-o-perehode-prav
+                                                   </Link></p>
                                              </div>
                                           </div>
                                        )}
@@ -447,8 +500,7 @@ class Blocks extends React.Component {
                                           <div>
                                              <h2> Риск №3: Границы объекта </h2>
                                              <div className="conclusion">
-                                                <BsExclamationCircle className="conclusionIcon" color="#e4f52c"
-                                                                     size={36}/>
+                                                <BsXCircle className="conclusionIcon" color="red" size={36}/>
                                                 <h3>{answers.second.risk2.ans}</h3>
                                              </div>
                                              {answers.second.risk2.number === 1 ? (
@@ -457,7 +509,16 @@ class Blocks extends React.Component {
                                                       <h3>Рекомендации:</h3>
                                                       <p> Есть риск, что межевание не проведено, поэтому: </p>
                                                       <p> Необходимо провести межевание земельного участка и поставить
-                                                         его на кадастровый учет. </p>
+                                                         его на кадастровый учет. Попросите Продавца воспользоваться
+                                                         услугами кадастрового инженера. Он поможет провести проверку
+                                                         межевания. </p>
+                                                      <p> Аккредитованные кадастровые инженеры есть в реестре. </p>
+                                                      <p> Ознакомиться с ним Вы можете по ссылке: </p>
+                                                      <Link
+                                                         to="https://rosreestr.gov.ru/"
+                                                         target="_blank" rel="noopener noreferrer">
+                                                         https://rosreestr.gov.ru/
+                                                      </Link>
                                                    </div>
                                                 </div>
                                              ) : (
@@ -597,8 +658,7 @@ class Blocks extends React.Component {
                                           <div>
                                              <h2> Риск № 6: Юридическая история объекта </h2>
                                              <div className="conclusion">
-                                                <BsExclamationCircle className="conclusionIcon" color="#e4f52c"
-                                                                     size={36}/>
+                                                <BsDashCircle className="conclusionIcon" color="orange" size={36}/>
                                                 <h3>{answers.second.risk8.ans}</h3>
                                              </div>
                                              <div className="Rec">
@@ -678,7 +738,7 @@ class Blocks extends React.Component {
                                           <div>
                                              <h2> Риск №8: Банкротство продавца </h2>
                                              <div className="conclusion">
-                                                <BsXCircle className="conclusionIcon" color="red" size={36}/>
+                                                <BsDashCircle className="conclusionIcon" color="orange" size={36}/>
                                                 <h3>{answers.third.risk5.ans}</h3>
                                              </div>
                                              <div className="Rec">
@@ -705,7 +765,7 @@ class Blocks extends React.Component {
                                           <div>
                                              <h2> Риск №9: Выплата долгов продавцом </h2>
                                              <div className="conclusion">
-                                                <BsXCircle className="conclusionIcon" color="red" size={36}/>
+                                                <BsDashCircle className="conclusionIcon" color="orange" size={36}/>
                                                 <h3>{answers.third.risk6.ans}</h3>
                                              </div>
                                              <div className="Rec">
@@ -761,8 +821,7 @@ class Blocks extends React.Component {
                                           <div>
                                              <h2> Риск №11: Продавец-ответчик в судебном споре </h2>
                                              <div className="conclusion">
-                                                <BsExclamationCircle className="conclusionIcon" color="#e4f52c"
-                                                                     size={36}/>
+                                                <BsDashCircle className="conclusionIcon" color="orange" size={36}/>
                                                 <h3>{answers.third.risk9.ans}</h3>
                                              </div>
                                              <div className="Rec">
@@ -780,20 +839,20 @@ class Blocks extends React.Component {
                                     </div>
                                  )}
                               </div>
-                              <div className={`riskBlock ${answers.fourth.risk12.cat > 0 ? 'active' : ''}`}>
-                                 {answers.fourth.risk12.cat > -1 && (
+                              <div className={`riskBlock ${answers.first.risk12.cat > 0 ? 'active' : ''}`}>
+                                 {answers.first.risk12.cat > -1 && (
                                     <div>
-                                       {answers.fourth.risk12.cat === 0 ? (
+                                       {answers.first.risk12.cat === 0 ? (
                                           <div className="conclusionOff">
                                              <BsCheckCircle className="conclusionIcon" color="green" size={36}/>
-                                             <h3>{answers.fourth.risk12.ans}</h3>
+                                             <h3>{answers.first.risk12.ans}</h3>
                                           </div>
                                        ) : (
                                           <div>
                                              <h2> Риск №12: Генеральная доверенность </h2>
                                              <div className="conclusion">
-                                                <BsDashCircle className="conclusionIcon" color="orange" size={36}/>
-                                                <h3>{answers.fourth.risk12.ans}</h3>
+                                                <BsXCircle className="conclusionIcon" color="red" size={36}/>
+                                                <h3>{answers.first.risk12.ans}</h3>
                                              </div>
                                              <div className="Rec">
                                                 <h3>Рекомендации:</h3>
@@ -807,20 +866,20 @@ class Blocks extends React.Component {
                                     </div>
                                  )}
                               </div>
-                              <div className={`riskBlock ${answers.fourth.risk13.q1.cat > 0 ? 'active' : ''}`}>
-                                 {answers.fourth.risk13.q1.cat > -1 && (
+                              <div className={`riskBlock ${answers.third.risk13.q1.cat > 0 ? 'active' : ''}`}>
+                                 {answers.third.risk13.q1.cat > -1 && (
                                     <div>
-                                       {answers.fourth.risk13.q1.cat === 0 ? (
+                                       {answers.third.risk13.q1.cat === 0 ? (
                                           <div className="conclusionOff">
                                              <BsCheckCircle className="conclusionIcon" color="green" size={36}/>
-                                             <h3>{answers.fourth.risk13.q1.cat.ans}</h3>
+                                             <h3>{answers.third.risk13.q1.cat.ans}</h3>
                                           </div>
                                        ) : (
                                           <div>
                                              <h2> Риск №13: Недееспособность продавца </h2>
                                              <div className="conclusion">
                                                 <BsXCircle className="conclusionIcon" color="red" size={36}/>
-                                                <h3>{answers.fourth.risk13.q1.ans}</h3>
+                                                <h3>{answers.third.risk13.q1.ans}</h3>
                                              </div>
                                              <div className="Rec">
                                                 <h3>Рекомендации:</h3>
@@ -838,13 +897,25 @@ class Blocks extends React.Component {
                                     </div>
                                  )}
                               </div>
+                              <PDFDownloadLink document={<Report answers={answers}/>} fileName="отчет.pdf">
+                                 {({
+                                      blob,
+                                      url,
+                                      loading,
+                                      error
+                                   }) => (loading ? 'Загрузка документа...' : 'Скачать PDF отчет')}
+                              </PDFDownloadLink>
                               <div>
                                  <h2>
                                     Рекомендуем для более подробного ознакомления с рисками перейти в раздел{' '}
                                     <Link to="/handbook">справочник</Link>!
                                  </h2>
-                                 <p className="warning">Информируем Вас, что команда “ЗемельКа” не оказывает влияние на принятие Вами итогового
+                                 <p className="warning">Информируем Вас, что команда “ЗемельКа” не оказывает влияние на
+                                    принятие Вами итогового
                                     решения по заключению сделки и не несет ответственность за это.</p>
+                                 <div className="warning">
+                                    Вся информация актуальна на {currentDate}
+                                 </div>
                               </div>
                            </div>
                         ) : (
@@ -869,16 +940,29 @@ class Blocks extends React.Component {
                                                 <p> Есть риск претензий со стороны супруга Продавца, поэтому: </p>
                                                 <p> Необходимо уточнить наличие брачного договора между супругами.
                                                    Нотариальное согласие второго супруга не требуется в случае, если
-                                                   заключен брачный договор. </p>
+                                                   заключен брачный договор, в котором прописано условие о праве
+                                                   распоряжения земельным участком. </p>
                                                 <p> Необходимо выяснить, когда земельный участок был приобретен
                                                    продавцом. Если до брака путем личного приобретения, дарения или
                                                    наследства, то второй супруг не может препятствовать совершению
                                                    сделки; если в браке, то второй супруг должен выразить свое согласие
                                                    на продажу, которое будет нотариально заверено. </p>
+                                                <p> Ознакомиться с законодательством вы можете по ссылке:</p>
+                                                <Link
+                                                   to="https://www.consultant.ru/document/cons_doc_LAW_5142/ec0c88d23cfe0b75563d574872c1457827b3607f/?ysclid=lkb23oaxga358628244"
+                                                   target="_blank" rel="noopener noreferrer">
+                                                   ГК РФ Статья 256. Общая собственность супругов \ КонсультантПлюс
+                                                </Link>
+                                                &nbsp;(ч. 1 ст. 256 ГК РФ)
                                                 <p> Попросите Продавца обратиться к нотариусу для получения
                                                    нотариального согласия. <br/>
-                                                   Записаться на прием к нотариусу можно на Госуслугах по ссылке:
-                                                   https://www.gosuslugi.ru/help/faq/notary/102751 </p>
+                                                   Записаться на прием к нотариусу можно на Госуслугах по ссылке: <br/>
+                                                   <Link
+                                                      to="https://www.gosuslugi.ru/help/faq/notary/102751"
+                                                      target="_blank" rel="noopener noreferrer">
+                                                      https://www.gosuslugi.ru/help/faq/notary/102751
+                                                   </Link>
+                                                </p>
                                              </div>
                                           </div>
                                        )}
@@ -911,10 +995,25 @@ class Blocks extends React.Component {
                                                    01.09.2013 - 15.07.2016 - свидетельство о регистрации или выпиской из
                                                    ЕГРН; <br/>
                                                    15.07.2016 - по настоящее время - только выписка из ЕГРН. </p>
+                                                <p>На любой зарегистрированный объект недвижимости можно получить
+                                                   выписку из ЕГРН, даже если у собственника ее никогда не было.<br/>
+                                                   Ознакомиться с законодательством Вы можете по ссылке:<br/>
+                                                   <Link
+                                                      to="https://www.consultant.ru/document/cons_doc_LAW_182661/e064cc95b1bdffa4d12abb92fdfc56dea94198df/"
+                                                      target="_blank" rel="noopener noreferrer">
+                                                      Статья 62. Порядок предоставления сведений, содержащихся в Едином
+                                                      государственном реестре недвижимости \ КонсультантПлюс
+                                                   </Link>
+                                                   &nbsp;(ст. 62 ГК РФ)
+                                                </p>
                                                 <p> На любой зарегистрированный объект недвижимости можно получить
                                                    выписку из ЕГРН, даже если у собственника ее никогда не было.
-                                                   Заказать ее Вы можете, перейдя по ссылке:
-                                                   https://rosreestor.net/vipiska-o-perehode-prav</p>
+                                                   Заказать выписку Вы (или Продавец) можете, перейдя по ссылке:&nbsp;
+                                                   <Link
+                                                      to="https://rosreestor.net/vipiska-o-perehode-prav"
+                                                      target="_blank" rel="noopener noreferrer">
+                                                      https://rosreestor.net/vipiska-o-perehode-prav
+                                                   </Link></p>
                                              </div>
                                           </div>
                                        )}
@@ -933,8 +1032,7 @@ class Blocks extends React.Component {
                                           <div>
                                              <h2> Риск №3: Границы объекта </h2>
                                              <div className="conclusion">
-                                                <BsExclamationCircle className="conclusionIcon" color="#e4f52c"
-                                                                     size={36}/>
+                                                <BsXCircle className="conclusionIcon" color="red" size={36}/>
                                                 <h3>{answers.second.risk2.ans}</h3>
                                              </div>
                                              {answers.second.risk2.number === 1 ? (
@@ -943,11 +1041,16 @@ class Blocks extends React.Component {
                                                       <h3>Рекомендации:</h3>
                                                       <p> Есть риск, что межевание не проведено, поэтому: </p>
                                                       <p> Необходимо провести межевание земельного участка и поставить
-                                                         его на кадастровый учет. Воспользуйтесь услугами кадастрового
-                                                         инженера. Он поможет Вам провести проверку межевания. </p>
-                                                      <p>Аккредитованные кадастровые инженеры есть в реестре.
-                                                         Ознакомиться с ним Вы можете по ссылке:
-                                                         https://rosreestr.gov.ru/</p>
+                                                         его на кадастровый учет. Попросите Продавца воспользоваться
+                                                         услугами кадастрового инженера. Он поможет провести проверку
+                                                         межевания. </p>
+                                                      <p> Аккредитованные кадастровые инженеры есть в реестре. </p>
+                                                      <p> Ознакомиться с ним Вы можете по ссылке: </p>
+                                                      <Link
+                                                         to="https://rosreestr.gov.ru/"
+                                                         target="_blank" rel="noopener noreferrer">
+                                                         https://rosreestr.gov.ru/
+                                                      </Link>
                                                    </div>
                                                 </div>
                                              ) : (
@@ -960,15 +1063,11 @@ class Blocks extends React.Component {
                                                          публичной кадастровой карты
                                                          Росреестра: <br/>
                                                          Ссылка №1 https://www.gosuslugi.ru/378659/1/info <br/>
-                                                         Ссылка №2
+                                                         Ссылка № 2
                                                          https://pkk.rosreestr.ru/?source=subscribe#/search/63.60201437832657,65.56074746184491/4/@bzbws4844
                                                       </p>
                                                       <p> Воспользуйтесь услугами кадастрового инженера. Он поможет Вам
-                                                         провести проверку межевания.</p>
-
-                                                      <p>Аккредитованные кадастровые инженеры есть в реестре.
-                                                         Ознакомиться с ним Вы можете по ссылке:
-                                                         https://rosreestr.gov.ru/</p>
+                                                         провести проверку межевания. </p>
                                                    </div>
                                                 </div>
                                              )}
@@ -996,7 +1095,16 @@ class Blocks extends React.Component {
                                                 <div>
                                                    <div className="Rec">
                                                       <h3>Рекомендации:</h3>
-                                                      <p> Советуем Вам не заключать данную сделку. </p>
+                                                      <p> Есть риск, что использование объекта для ваших нужд
+                                                         недопустимо, поэтому: </p>
+                                                      <p>Вы можете заключить данную сделку, однако ваши планы на
+                                                         земельный участок могут быть не реализованы.
+                                                         Вид разрешенного использования земельного участка предполагает,
+                                                         что объект должен использоваться в соответствии с назначением и
+                                                         требованиями. Это ограничивает свободу ваших действий при
+                                                         пользовании объектом.
+                                                      </p>
+
                                                    </div>
                                                 </div>
                                              ) : (
@@ -1082,8 +1190,7 @@ class Blocks extends React.Component {
                                           <div>
                                              <h2> Риск № 6: Юридическая история объекта </h2>
                                              <div className="conclusion">
-                                                <BsExclamationCircle className="conclusionIcon" color="#e4f52c"
-                                                                     size={36}/>
+                                                <BsDashCircle className="conclusionIcon" color="orange" size={36}/>
                                                 <h3>{answers.second.risk8.ans}</h3>
                                              </div>
                                              <div className="Rec">
@@ -1163,7 +1270,7 @@ class Blocks extends React.Component {
                                           <div>
                                              <h2> Риск №8: Банкротство продавца </h2>
                                              <div className="conclusion">
-                                                <BsXCircle className="conclusionIcon" color="red" size={36}/>
+                                                <BsDashCircle className="conclusionIcon" color="orange" size={36}/>
                                                 <h3>{answers.third.risk5.ans}</h3>
                                              </div>
                                              <div className="Rec">
@@ -1190,7 +1297,7 @@ class Blocks extends React.Component {
                                           <div>
                                              <h2> Риск №9: Выплата долгов продавцом </h2>
                                              <div className="conclusion">
-                                                <BsXCircle className="conclusionIcon" color="red" size={36}/>
+                                                <BsDashCircle className="conclusionIcon" color="orange" size={36}/>
                                                 <h3>{answers.third.risk6.ans}</h3>
                                              </div>
                                              <div className="Rec">
@@ -1246,8 +1353,7 @@ class Blocks extends React.Component {
                                           <div>
                                              <h2> Риск №11: Продавец-ответчик в судебном споре </h2>
                                              <div className="conclusion">
-                                                <BsExclamationCircle className="conclusionIcon" color="#e4f52c"
-                                                                     size={36}/>
+                                                <BsDashCircle className="conclusionIcon" color="orange" size={36}/>
                                                 <h3>{answers.third.risk9.ans}</h3>
                                              </div>
                                              <div className="Rec">
@@ -1265,20 +1371,20 @@ class Blocks extends React.Component {
                                     </div>
                                  )}
                               </div>
-                              <div className={`riskBlock ${answers.fourth.risk12.cat > 0 ? 'active' : ''}`}>
-                                 {answers.fourth.risk12.cat > -1 && (
+                              <div className={`riskBlock ${answers.first.risk12.cat > 0 ? 'active' : ''}`}>
+                                 {answers.first.risk12.cat > -1 && (
                                     <div>
-                                       {answers.fourth.risk12.cat === 0 ? (
+                                       {answers.first.risk12.cat === 0 ? (
                                           <div className="conclusionOff">
                                              <BsCheckCircle className="conclusionIcon" color="green" size={36}/>
-                                             <h3>{answers.fourth.risk12.ans}</h3>
+                                             <h3>{answers.first.risk12.ans}</h3>
                                           </div>
                                        ) : (
                                           <div>
                                              <h2> Риск №12: Генеральная доверенность </h2>
                                              <div className="conclusion">
-                                                <BsDashCircle className="conclusionIcon" color="orange" size={36}/>
-                                                <h3>{answers.fourth.risk12.ans}</h3>
+                                                <BsXCircle className="conclusionIcon" color="red" size={36}/>
+                                                <h3>{answers.first.risk12.ans}</h3>
                                              </div>
                                              <div className="Rec">
                                                 <h3>Рекомендации:</h3>
@@ -1292,20 +1398,20 @@ class Blocks extends React.Component {
                                     </div>
                                  )}
                               </div>
-                              <div className={`riskBlock ${answers.fourth.risk13.q1.cat > 0 ? 'active' : ''}`}>
-                                 {answers.fourth.risk13.q1.cat > -1 && (
+                              <div className={`riskBlock ${answers.third.risk13.q1.cat > 0 ? 'active' : ''}`}>
+                                 {answers.third.risk13.q1.cat > -1 && (
                                     <div>
-                                       {answers.fourth.risk13.q1.cat === 0 ? (
+                                       {answers.third.risk13.q1.cat === 0 ? (
                                           <div className="conclusionOff">
                                              <BsCheckCircle className="conclusionIcon" color="green" size={36}/>
-                                             <h3>{answers.fourth.risk13.q1.cat.ans}</h3>
+                                             <h3>{answers.third.risk13.q1.cat.ans}</h3>
                                           </div>
                                        ) : (
                                           <div>
                                              <h2> Риск №13: Недееспособность продавца </h2>
                                              <div className="conclusion">
                                                 <BsXCircle className="conclusionIcon" color="red" size={36}/>
-                                                <h3>{answers.fourth.risk13.q1.ans}</h3>
+                                                <h3>{answers.third.risk13.q1.ans}</h3>
                                              </div>
                                              <div className="Rec">
                                                 <h3>Рекомендации:</h3>
@@ -1313,12 +1419,10 @@ class Blocks extends React.Component {
                                                 <p> Получите выписку из ЕГРН о признании правообладателя недееспособным
                                                    или ограниченно дееспособным. Инструкция по ссылке:
                                                    https://www.gosuslugi.ru/help/faq/egrn/101769 </p>
-                                                <p> Есть риск, что Продавец является недееспособным и за него все
-                                                   решения по сделке принимает опекун, поэтому:
-                                                   Вы можете обратиться в орган опеки и попечительства по месту
-                                                   жительства недееспособного (или ограниченно дееспособного) и получить
-                                                   удостоверение опекуна или (попечителя).
-                                                </p>
+                                                <p> Запросите у Продавца справки из психоневрологического диспансера и
+                                                   наркологического диспансера, чтобы удостовериться в его полной
+                                                   дееспособности и снять подозрения о невозможности совершения
+                                                   осознанных действий. </p>
                                              </div>
                                           </div>
                                        )}
@@ -1326,7 +1430,7 @@ class Blocks extends React.Component {
                                  )}
                               </div>
                               <div className="notPassed">
-                                 <h3>Обратите внимание, есть ряд рисков, тестирование по которым Вы не прошли! </h3>
+                                 <h3>Есть тестовые вопросы, которые Вы не прошли:</h3>
                                  <div>
                                     {answers.first.risk1.cat === -1 && (
                                        <div>
@@ -1383,24 +1487,36 @@ class Blocks extends React.Component {
                                           <h4> Риск №11: Продавец-ответчик в судебном споре</h4>
                                        </div>
                                     )}
-                                    {answers.fourth.risk12.cat === -1 && (
+                                    {answers.first.risk12.cat === -1 && (
                                        <div>
                                           <h4> Риск №12: Генеральная доверенность </h4>
                                        </div>
                                     )}
-                                    {answers.fourth.risk13.q1.cat === -1 && (
+                                    {answers.third.risk13.q1.cat === -1 && (
                                        <div>
                                           <h4> Риск №13: Недееспособность продавца</h4>
                                        </div>
                                     )}
                                  </div>
                               </div>
+                              <PDFDownloadLink document={<Report answers={answers}/>} fileName="отчет.pdf">
+                                 {({
+                                      blob,
+                                      url,
+                                      loading,
+                                      error
+                                   }) => (loading ? 'Загрузка документа...' : 'Скачать PDF отчет')}
+                              </PDFDownloadLink>
                               <h2>
                                  Рекомендуем для более подробного ознакомления с рисками перейти в раздел{' '}
                                  <Link to="/handbook">справочник</Link>!
                               </h2>
-                              <p className="warning">Информируем Вас, что команда “ЗемельКа” не оказывает влияние на принятие Вами итогового
+                              <p className="warning">Информируем Вас, что команда “ЗемельКа” не оказывает влияние на
+                                 принятие Вами итогового
                                  решения по заключению сделки и не несет ответственность за это.</p>
+                              <div className="warning">
+                                 Вся информация актуальна на {currentDate}
+                              </div>
                            </div>
                         )}
                      </div>

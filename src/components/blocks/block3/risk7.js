@@ -61,7 +61,7 @@ class Risk7 extends React.Component {
          this.setState({
             riskanswer: {
                ans: 'Риск есть',
-               cat: 3,
+               cat: 2,
                number: 1
             }
          });
@@ -97,7 +97,7 @@ class Risk7 extends React.Component {
                   className={`RiskIcon ${isClicked ? 'rotated' : ''}`}
                   onClick={this.ClickToBlock}
                />
-               <h3>Риск №10: Причастность к экстремизму и другим преступлениям</h3>
+               <h3>Риск: Причастность к экстремизму и другим преступлениям</h3>
             </div>
             {this.state.isClicked && (
                <div>
