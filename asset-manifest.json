@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/KP_deployment/static/css/main.99635edb.css",
-    "main.js": "/KP_deployment/static/js/main.e66191e0.js",
+    "main.css": "/KP_deployment/static/css/main.db44abfc.css",
+    "main.js": "/KP_deployment/static/js/main.8c2ea3b7.js",
     "static/media/ProximaNova-Regular.ttf": "/KP_deployment/static/media/ProximaNova-Regular.b078618b41b9b6629ea0.ttf",
     "static/media/logo.png": "/KP_deployment/static/media/logo.fb6c7b9af19cf2b2700c.png",
     "index.html": "/KP_deployment/index.html",
-    "main.99635edb.css.map": "/KP_deployment/static/css/main.99635edb.css.map",
-    "main.e66191e0.js.map": "/KP_deployment/static/js/main.e66191e0.js.map"
+    "main.db44abfc.css.map": "/KP_deployment/static/css/main.db44abfc.css.map",
+    "main.8c2ea3b7.js.map": "/KP_deployment/static/js/main.8c2ea3b7.js.map"
   },
   "entrypoints": [
-    "static/css/main.99635edb.css",
-    "static/js/main.e66191e0.js"
+    "static/css/main.db44abfc.css",
+    "static/js/main.8c2ea3b7.js"
   ]
 }
