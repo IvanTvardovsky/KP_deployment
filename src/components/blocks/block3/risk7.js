@@ -88,7 +88,7 @@ class Risk7 extends React.Component {
    render() {
       const {ans, click, isClicked, visible} = this.state;
       const tooltips = [
-         `<b>Экстремизм</b> - это криминальное явление, направленное против основ конституционного строя и безопасности государства. `
+         `<b>Экстремизм</b> - это криминальное явление, направленное против основ конституционного строя и безопасности государства`
       ];
       return (
          <div className="Risk">
@@ -104,11 +104,13 @@ class Risk7 extends React.Component {
                   <div className="Question">
                      <div className="QuestTool">
                         <p className="bigger">{this.quests[0].question}</p>
-                        <BsQuestionCircleFill
-                           className="QuestIcon"
-                           onMouseEnter={() => this.handleMouseEnter(0)}
-                           onMouseLeave={() => this.handleMouseLeave(0)}
-                        />
+                        <div>
+                           <BsQuestionCircleFill
+                              className="QuestIcon"
+                              onMouseEnter={() => this.handleMouseEnter(0)}
+                              onMouseLeave={() => this.handleMouseLeave(0)}
+                           />
+                        </div>
                         <div className="ToolContainer">
                            <div
                               className="Tooltip"

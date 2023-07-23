@@ -88,7 +88,7 @@ class Risk12 extends React.Component {
    render() {
       const {ans, click, isClicked, visible} = this.state;
       const tooltips = [
-         `<b>Генеральная доверенность</b> - это документ, который дает право доверенному лицу на самые разные юридические действия, в том числе на покупку или отчуждение имущества и подпись документов.`
+         `<b>Генеральная доверенность</b> - это документ, который дает право доверенному лицу на самые разные юридические действия, в том числе на покупку или отчуждение имущества и подпись документов`
       ];
       return (
          <div className="Risk">
@@ -104,11 +104,13 @@ class Risk12 extends React.Component {
                   <div className="Question">
                      <div className="QuestTool">
                         <p className="bigger" id="perenos">{this.quests[0].question}</p>
-                        <BsQuestionCircleFill
-                           className="QuestIcon"
-                           onMouseEnter={() => this.handleMouseEnter(0)}
-                           onMouseLeave={() => this.handleMouseLeave(0)}
+                        <div>
+                           <BsQuestionCircleFill
+                              className="QuestIcon"
+                              onMouseEnter={() => this.handleMouseEnter(0)}
+                              onMouseLeave={() => this.handleMouseLeave(0)}
                         />
+                        </div>
                         <div className="ToolContainer">
                            <div
                               className="Tooltip"
