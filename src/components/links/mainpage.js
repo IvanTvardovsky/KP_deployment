@@ -18,13 +18,15 @@ class MainPage extends React.Component {
    }
 
    render() {
-      const currentDate = this.getCurrentDate();
+      //const currentDate = this.getCurrentDate();
       return (
          <div className="App">
             <Welcome/>
-            <div className="date-info">
-               Вся информация актуальна на {currentDate}
-            </div>
+            {/*
+               <div className="date-info">
+                  Вся информация актуальна на {currentDate}
+               </div>
+            */}
             <Link to="/instrument">
                <button className="continue-btn">Продолжить</button>
             </Link>
