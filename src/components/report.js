@@ -36,7 +36,8 @@ const Report = ({answers}) => {
                   && (answers.third.risk13.q1.cat < 1) && (answers.third.risk13.q2.cat < 1)) ? (
                   <View>
                      <View>
-                        <Text style={styles.subTitle}>Нет рисков, сделка может быть заключена! </Text>
+                        <Text style={styles.subTitle}>Исходя из ваших ответов, риски не обнаружены, сделка может быть
+                           заключена </Text>
                      </View>
                      {answers.first.risk1.cat === 0 && (
                         <View style={styles.RiskNameGreen}>
@@ -125,8 +126,8 @@ const Report = ({answers}) => {
                         && (answers.third.risk13.q1.cat < 2) && (answers.third.risk13.q2.cat < 2)) ? (
                         <View>
                            <View>
-                              <Text style={styles.subTitle}>Есть риски, на которые стоит обратить внимание, но сделка
-                                 может быть заключена! </Text>
+                              <Text style={styles.subTitle}>Исходя из ваших ответов, риски обнаружены, но сделка может
+                                 быть заключена </Text>
                            </View>
                            <View wrap={false}>
                               {answers.first.risk1.cat > -1 && (
@@ -363,7 +364,7 @@ const Report = ({answers}) => {
                                                    <Text style={styles.text}>Есть риск, что использование объекта для
                                                       ваших нужд
                                                       недопустимо, поэтому: </Text>
-                                                   <Text style={styles.text}>Вы можете заключить данную сделку, однако
+                                                   <Text style={styles.text}>ы можете заключить данную сделку, однако
                                                       ваши планы на
                                                       земельный участок могут быть не реализованы.
                                                       Вид разрешенного использования земельного участка предполагает,
@@ -380,29 +381,6 @@ const Report = ({answers}) => {
                                                       <Text style={styles.text}>Есть риск, что разрешение на
                                                          использование объекта не
                                                          подтверждено официально: </Text>
-                                                      <Text style={styles.text}>Проверьте с помощью публичной
-                                                         кадастровой карты Росреестра. </Text>
-                                                      <Text style={styles.text}>Ссылка №1:</Text>
-                                                      <Link
-                                                         src='https://www.gosuslugi.ru/378659/1/info'
-                                                         style={{
-                                                            fontSize: '12px',
-                                                         }}>
-                                                         https://www.gosuslugi.ru/378659/1/info
-                                                      </Link>
-                                                      <Text style={styles.text}>Ссылка №2:</Text>
-                                                      <Link
-                                                         src='https://pkk.rosreestr.ru/?source=subscribe#/search/63.60201437832657,65.56074746184491/4/@bzbws4844'
-                                                         style={{
-                                                            fontSize: '12px',
-                                                         }}>
-                                                         https://pkk.rosreestr.ru/?source=subscribe#/search/63.60201437832657,65.56074746184491/4/@bzbws4844
-                                                      </Link>
-                                                      <Text style={styles.text}>Проверьте генеральный план развития
-                                                         местности,
-                                                         утвержденный местной администрацией.
-                                                         Например, Генплан Москвы до 2035 г. можно посмотреть по
-                                                         ссылке: </Text>
                                                       <Link
                                                          src='https://genplanmos.ru/project/generalnyy_plan_moskvy_do_2035_goda/'
                                                          style={{
@@ -410,10 +388,9 @@ const Report = ({answers}) => {
                                                          }}>
                                                          https://genplanmos.ru/project/generalnyy_plan_moskvy_do_2035_goda/
                                                       </Link>
-                                                      <Text style={styles.text}>Проверьте Правила землепользования и
-                                                         застройки. Например,
-                                                         Правила землепользования и застройки города Москвы можно
-                                                         посмотреть по ссылке: </Text>
+                                                      <Text style={styles.text}>Есть риск, что разрешение на
+                                                         использование объекта не
+                                                         подтверждено официально: </Text>
                                                       <Link
                                                          src='https://www.mos.ru/mka/documents/pravila-zemlepolzovaniya-i-zastrojki-goroda-moskvy/'
                                                          style={{
@@ -619,8 +596,8 @@ const Report = ({answers}) => {
                                              <Text style={styles.recTitle}>Рекомендации:</Text>
                                              <Text style={styles.text}>Есть риск, что Продавец является злостным
                                                 должником, поэтому: </Text>
-                                             <Text style={styles.text}>Проверьте Продавца в соответствующем
-                                                реестре: </Text>
+                                             <Text style={styles.text}>Проверьте Продавца в соответствующем реестре:
+                                                https://fssp.gov.ru/ </Text>
                                              <Link src='https://fssp.gov.ru/'
                                                    style={{
                                                       fontSize: '12px',
@@ -698,22 +675,16 @@ const Report = ({answers}) => {
                                                 производстве в качестве
                                                 ответчика, поэтому: </Text>
                                              <Text style={styles.text}>Проверьте продавца в соответствующем
-                                                реестре:
-                                             </Text>
-                                             <Text style={styles.text}>
-                                                <Link src='https://mos-gorsud.ru/mgs/services/cases/first-civil'
-                                                      style={{
-                                                         fontSize: '12px',
-                                                      }}>
-                                                   https://mos-gorsud.ru/mgs/services/cases/first-civil
-                                                </Link>
-                                             </Text>
-                                             <Text style={styles.text}>
+                                                реестре: <br/>
                                                 Это нужно для того, чтобы удостовериться, что в отношении продавца
                                                 нет возбужденных судебных дел, которые бы могли угрожать совершению
-                                                сделки (например, развод).
-                                             </Text>
-
+                                                сделки (например, развод). </Text>
+                                             <Link src='https://mos-gorsud.ru/mgs/services/cases/first-civil'
+                                                   style={{
+                                                      fontSize: '12px',
+                                                   }}>
+                                                https://mos-gorsud.ru/mgs/services/cases/first-civil
+                                             </Link>
                                           </View>
                                        </View>
                                     )}
@@ -762,8 +733,8 @@ const Report = ({answers}) => {
                      ) : (
                         <View>
                            <View>
-                              <Text style={styles.subTitle}>Есть высокий риск того, что сделка не может быть
-                                 заключена! </Text>
+                              <Text style={styles.subTitle}>Исходя из ваших ответов, риски обнаружены, сделка не может
+                                 быть заключена </Text>
                            </View>
                            <View>
                               <View wrap={false}>
@@ -1002,8 +973,8 @@ const Report = ({answers}) => {
                                                       <Text style={styles.text}>Есть риск, что использование объекта для
                                                          ваших нужд
                                                          недопустимо, поэтому: </Text>
-                                                      <Text style={styles.text}>Вы можете заключить данную сделку,
-                                                         однако ваши планы на
+                                                      <Text style={styles.text}>ы можете заключить данную сделку, однако
+                                                         ваши планы на
                                                          земельный участок могут быть не реализованы.
                                                          Вид разрешенного использования земельного участка предполагает,
                                                          что объект должен использоваться в соответствии с назначением и
@@ -1019,29 +990,6 @@ const Report = ({answers}) => {
                                                          <Text style={styles.text}>Есть риск, что разрешение на
                                                             использование объекта не
                                                             подтверждено официально: </Text>
-                                                         <Text style={styles.text}>Проверьте с помощью публичной
-                                                            кадастровой карты Росреестра. </Text>
-                                                         <Text style={styles.text}>Ссылка №1:</Text>
-                                                         <Link
-                                                            src='https://www.gosuslugi.ru/378659/1/info'
-                                                            style={{
-                                                               fontSize: '12px',
-                                                            }}>
-                                                            https://www.gosuslugi.ru/378659/1/info
-                                                         </Link>
-                                                         <Text style={styles.text}>Ссылка №2:</Text>
-                                                         <Link
-                                                            src='https://pkk.rosreestr.ru/?source=subscribe#/search/63.60201437832657,65.56074746184491/4/@bzbws4844'
-                                                            style={{
-                                                               fontSize: '12px',
-                                                            }}>
-                                                            https://pkk.rosreestr.ru/?source=subscribe#/search/63.60201437832657,65.56074746184491/4/@bzbws4844
-                                                         </Link>
-                                                         <Text style={styles.text}>Проверьте генеральный план развития
-                                                            местности,
-                                                            утвержденный местной администрацией.
-                                                            Например, Генплан Москвы до 2035 г. можно посмотреть по
-                                                            ссылке: </Text>
                                                          <Link
                                                             src='https://genplanmos.ru/project/generalnyy_plan_moskvy_do_2035_goda/'
                                                             style={{
@@ -1049,10 +997,9 @@ const Report = ({answers}) => {
                                                             }}>
                                                             https://genplanmos.ru/project/generalnyy_plan_moskvy_do_2035_goda/
                                                          </Link>
-                                                         <Text style={styles.text}>Проверьте Правила землепользования и
-                                                            застройки. Например,
-                                                            Правила землепользования и застройки города Москвы можно
-                                                            посмотреть по ссылке: </Text>
+                                                         <Text style={styles.text}>Есть риск, что разрешение на
+                                                            использование объекта не
+                                                            подтверждено официально: </Text>
                                                          <Link
                                                             src='https://www.mos.ru/mka/documents/pravila-zemlepolzovaniya-i-zastrojki-goroda-moskvy/'
                                                             style={{
@@ -1258,8 +1205,8 @@ const Report = ({answers}) => {
                                                 <Text style={styles.recTitle}>Рекомендации:</Text>
                                                 <Text style={styles.text}>Есть риск, что Продавец является злостным
                                                    должником, поэтому: </Text>
-                                                <Text style={styles.text}>Проверьте Продавца в соответствующем
-                                                   реестре: </Text>
+                                                <Text style={styles.text}>Проверьте Продавца в соответствующем реестре:
+                                                   https://fssp.gov.ru/ </Text>
                                                 <Link src='https://fssp.gov.ru/'
                                                       style={{
                                                          fontSize: '12px',
@@ -1338,21 +1285,16 @@ const Report = ({answers}) => {
                                                    производстве в качестве
                                                    ответчика, поэтому: </Text>
                                                 <Text style={styles.text}>Проверьте продавца в соответствующем
-                                                   реестре:
-                                                </Text>
-                                                <Text style={styles.text}>
-                                                   <Link src='https://mos-gorsud.ru/mgs/services/cases/first-civil'
-                                                         style={{
-                                                            fontSize: '12px',
-                                                         }}>
-                                                      https://mos-gorsud.ru/mgs/services/cases/first-civil
-                                                   </Link>
-                                                </Text>
-                                                <Text style={styles.text}>
+                                                   реестре: <br/>
                                                    Это нужно для того, чтобы удостовериться, что в отношении продавца
                                                    нет возбужденных судебных дел, которые бы могли угрожать совершению
-                                                   сделки (например, развод).
-                                                </Text>
+                                                   сделки (например, развод). </Text>
+                                                <Link src='https://mos-gorsud.ru/mgs/services/cases/first-civil'
+                                                      style={{
+                                                         fontSize: '12px',
+                                                      }}>
+                                                   https://mos-gorsud.ru/mgs/services/cases/first-civil
+                                                </Link>
                                              </View>
                                           </View>
                                        )}
